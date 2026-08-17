@@ -1,5 +1,8 @@
 # Naver Realtor Blog Skill
 
+[![validate](https://github.com/Dr-Min/naver-realtor-blog-skill/actions/workflows/validate.yml/badge.svg)](https://github.com/Dr-Min/naver-realtor-blog-skill/actions/workflows/validate.yml)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 공인중개사와 부동산 중개사무소가 제공한 **매물 사실·현장 관찰·사진**을 바탕으로 네이버 블로그용 매물 소개 글을 만들고, 키워드 조사 근거와 판단 과정을 감사 가능한 형태로 남긴 뒤, Codex 내부 브라우저에서 **임시저장까지만** 수행하는 Agent Skill입니다.
 
 > 이 프로젝트는 “키워드를 많이 넣으면 상위 노출된다”는 식의 SEO 자동화가 아닙니다. 검색량을 추측하지 않고, 네이버 공개 표면에서 확인한 증거와 한계를 분리하며, 매물 사실을 창작하지 않는 반자동 운영 워크플로우입니다.
