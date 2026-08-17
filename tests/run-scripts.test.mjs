@@ -26,7 +26,14 @@ test("init-run creates a valid scaffold and refuses overwrite", () => {
     ], {encoding: "utf8"});
     const created = JSON.parse(output);
     assert.equal(created.ok, true);
+    assert.equal(created.execution_mode, "efficient");
     assert.ok(created.run_dir.endsWith(path.join("2026-08-18", "신촌-원룸-테스트")));
+    const execution = fs.readFileSync(
+      path.join(created.run_dir, "ai/system/execution-mode.yaml"), "utf8");
+    assert.match(execution, /^mode: "efficient"$/m);
+    assert.match(execution, /logical_roles: 10/);
+    assert.match(execution, /roles_merged: false/);
+    assert.match(execution, /fork_turns: "none"/);
 
     const validated = JSON.parse(execFileSync(process.execPath, [
       validateScript,
@@ -43,6 +50,43 @@ test("init-run creates a valid scaffold and refuses overwrite", () => {
     ], {encoding: "utf8"});
     assert.notEqual(duplicate.status, 0);
     assert.match(duplicate.stderr, /already exists/);
+  } finally {
+    fs.rmSync(temp, {recursive: true, force: true});
+  }
+});
+
+test("init-run preserves former routing as explicit ultra_precision mode", () => {
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), "naver-skill-"));
+  try {
+    const created = JSON.parse(execFileSync(process.execPath, [
+      initScript,
+      "--root", temp,
+      "--date", "2026-08-18",
+      "--slug", "초정밀 테스트",
+      "--mode", "ultra_precision"
+    ], {encoding: "utf8"}));
+    assert.equal(created.execution_mode, "ultra_precision");
+    const execution = fs.readFileSync(
+      path.join(created.run_dir, "ai/system/execution-mode.yaml"), "utf8");
+    assert.match(execution, /^mode: "ultra_precision"$/m);
+    assert.match(execution, /roles_merged: false/);
+  } finally {
+    fs.rmSync(temp, {recursive: true, force: true});
+  }
+});
+
+test("init-run rejects unknown execution modes", () => {
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), "naver-skill-"));
+  try {
+    const invalid = spawnSync(process.execPath, [
+      initScript,
+      "--root", temp,
+      "--date", "2026-08-18",
+      "--slug", "잘못된 모드",
+      "--mode", "premium"
+    ], {encoding: "utf8"});
+    assert.notEqual(invalid.status, 0);
+    assert.match(invalid.stderr, /efficient or ultra_precision/);
   } finally {
     fs.rmSync(temp, {recursive: true, force: true});
   }
@@ -86,6 +130,21 @@ test("complete validation passes safe fixture and blocks publication", () => {
       "--phase", "complete"
     ], {encoding: "utf8"}));
     assert.equal(pass.ok, true);
+
+    const executionPath = path.join(runDir, "ai/system/execution-mode.yaml");
+    const validExecution = fs.readFileSync(executionPath, "utf8");
+    fs.writeFileSync(executionPath,
+      validExecution.replace('mode: "efficient"', 'mode: "ultra_precision"'));
+    const modeMismatch = spawnSync(process.execPath, [
+      validateScript,
+      "--run", runDir,
+      "--phase", "complete"
+    ], {encoding: "utf8"});
+    assert.notEqual(modeMismatch.status, 0);
+    const modeResult = JSON.parse(modeMismatch.stdout);
+    assert.ok(modeResult.errors.some((value) =>
+      value.includes("does not match run manifest")));
+    fs.writeFileSync(executionPath, validExecution);
 
     write(runDir, "ai/production/naver-payload.yaml",
       "public_publish: false\naction_after_qa: save_draft_only\n");

@@ -8,7 +8,8 @@ The architecture optimizes for five properties:
 2. **traceability** — every decision points to evidence and hashes;
 3. **version consistency** — the report and browser use the same locked draft;
 4. **safe automation** — authentication stays human and automation stops at draft save;
-5. **progressive disclosure** — one public skill with internal references and bounded agents.
+5. **progressive disclosure** — one public skill with internal references and bounded agents;
+6. **cost control without topology loss** — ten roles remain independent while context and model tier scale by need.
 
 ## Component map
 
@@ -84,6 +85,25 @@ The user invokes one skill because the user-visible job is one outcome: make and
 - the report cannot use an unlocked draft.
 
 This separation reduces confirmation bias and stale-version errors without making the user orchestrate multiple skills.
+
+## Execution-mode router
+
+```mermaid
+flowchart LR
+  U["User mode request"] --> M{"Explicit ultra precision?"}
+  M -- "No" --> E["efficient: default"]
+  M -- "Yes" --> P["ultra_precision"]
+  E --> T["Same ten logical roles"]
+  P --> T
+  T --> C["fork_turns none + paths and hashes"]
+  C --> G{"Role contract passes?"}
+  G -- "Yes" --> N["Continue"]
+  G -- "No, recorded trigger" --> X["Escalate affected role once"]
+```
+
+The router never merges collectors or QA roles. `efficient` changes model and
+effort, not responsibility. Every subagent reconstructs its bounded context
+from run files, so conversation length is not multiplied across the topology.
 
 ## State machine
 

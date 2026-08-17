@@ -61,6 +61,7 @@ const requiredDirs = [
 const required = [
   "human/00-시작.md",
   "ai/system/run-manifest.yaml",
+  "ai/system/execution-mode.yaml",
   "ai/system/events.jsonl"
 ];
 if (phase !== "scaffold") {
@@ -90,6 +91,32 @@ for (const dir of requiredDirs) {
 }
 for (const file of required) {
   if (!fs.existsSync(path.join(runDir, file))) errors.push("missing file: " + file);
+}
+
+const executionModePath = path.join(runDir, "ai/system/execution-mode.yaml");
+if (fs.existsSync(executionModePath)) {
+  const execution = fs.readFileSync(executionModePath, "utf8");
+  const modeMatch = execution.match(/^mode:\s*["']?(efficient|ultra_precision)["']?\s*$/im);
+  if (!modeMatch) {
+    errors.push("execution mode must be efficient or ultra_precision");
+  }
+  if (!/logical_roles:\s*10/i.test(execution)) {
+    errors.push("execution mode must preserve all ten logical roles");
+  }
+  if (!/fork_turns:\s*["']?none["']?/i.test(execution)) {
+    errors.push("execution mode must isolate subagents with fork_turns: none");
+  }
+  if (!/roles_merged:\s*false/i.test(execution)) {
+    errors.push("execution mode must preserve the ten-role topology");
+  }
+  const manifestPath = path.join(runDir, "ai/system/run-manifest.yaml");
+  if (modeMatch && fs.existsSync(manifestPath)) {
+    const manifest = fs.readFileSync(manifestPath, "utf8");
+    const declared = manifest.match(/^execution_mode:\s*["']?([^"'\s]+)["']?\s*$/im)?.[1];
+    if (declared !== modeMatch[1]) {
+      errors.push("execution mode does not match run manifest");
+    }
+  }
 }
 
 for (const rel of ["ai/system/run-manifest.yaml", "ai/production/naver-payload.yaml", "ai/production/save-result.yaml"]) {

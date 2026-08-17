@@ -16,6 +16,9 @@ AI files preserve raw evidence, schemas, hashes, lineage, and browser payloads.
 The production folder also preserves the machine-checkable readability receipt
 used to verify paragraph length, heading separation, condition bullets, image
 rhythm, emphasis, and declared exceptions.
+The system folder preserves the selected execution mode, ten-role topology,
+fork policy, requested and actual model/effort, cache use, and role-local
+escalation receipts.
 
 ## Human files
 
@@ -61,7 +64,7 @@ Success, blocked, or failed status; timestamp; verified structure; publication f
 12. QA and remediation;
 13. browser receipt;
 14. models and agent routing;
-15. cache lineage;
+15. execution mode, bounded context, escalations, and cache lineage;
 16. integrity and limitations.
 
 ## Evidence rendering

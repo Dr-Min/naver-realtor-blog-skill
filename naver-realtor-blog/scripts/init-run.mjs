@@ -44,11 +44,15 @@ const args = parseArgs(process.argv.slice(2));
 const root = path.resolve(args.root || path.join(process.cwd(), "naver-blog-runs"));
 const date = String(args.date || seoulDate());
 const slug = slugify(String(args.slug || ""));
+const executionMode = String(args.mode || "efficient");
 if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
   throw new Error("--date must be YYYY-MM-DD");
 }
 if (!slug) {
   throw new Error("--slug is required, for example --slug 신촌-원룸-월세");
+}
+if (!["efficient", "ultra_precision"].includes(executionMode)) {
+  throw new Error("--mode must be efficient or ultra_precision");
 }
 if (fs.existsSync(path.join(root, ".ok"))) {
   throw new Error("Choose an output root outside an OpenKnowledge content root.");
@@ -81,6 +85,9 @@ const manifest = [
   "created_at: " + yamlString(new Date().toISOString()),
   'status: "initialized"',
   'channel: "naver_blog"',
+  'execution_mode: ' + yamlString(executionMode),
+  'agent_topology: "ten_roles_preserved"',
+  'context_policy: "bounded_no_history"',
   'save_policy:',
   '  automatic_draft_save_after_qa: true',
   '  public_publish: false',
@@ -93,11 +100,33 @@ const manifest = [
   ""
 ].join("\n");
 
+const execution = [
+  'schema_version: "1.0"',
+  "mode: " + yamlString(executionMode),
+  'default_mode: "efficient"',
+  'agent_topology:',
+  '  logical_roles: 10',
+  '  roles_merged: false',
+  'context:',
+  '  fork_turns: "none"',
+  '  full_conversation_forwarded: false',
+  '  screenshots_embedded_in_prompts: false',
+  '  input_contract: "paths_and_sha256"',
+  '  chat_receipt_max_lines: 10',
+  'escalation:',
+  '  scope: "affected_role_only"',
+  '  max_per_role: 1',
+  '  default_target: "gpt-5.6-sol high"',
+  '  browser_target: "gpt-5.6-terra high"',
+  ""
+].join("\n");
+
 const start = [
   "# 네이버 블로그 작업 시작",
   "",
   "- 실행 ID: " + runId,
   "- 현재 상태: 입력 대기",
+  "- 실행 모드: " + (executionMode === "efficient" ? "가성비 기본 모드" : "초정밀 모드"),
   "- 공개 발행: 하지 않음",
   "- QA 통과 뒤 네이버 임시저장: 기본 실행",
   "",
@@ -123,14 +152,21 @@ const evidenceIndex = [
 ].join("\n");
 
 fs.writeFileSync(path.join(runDir, "ai/system/run-manifest.yaml"), manifest, {flag: "wx"});
+fs.writeFileSync(path.join(runDir, "ai/system/execution-mode.yaml"), execution, {flag: "wx"});
 fs.writeFileSync(path.join(runDir, "ai/system/events.jsonl"), JSON.stringify({
   schema_version: "1.0",
   run_id: runId,
   event: "run_initialized",
+  execution_mode: executionMode,
   at: new Date().toISOString(),
   actor: "orchestrator"
 }) + "\n", {flag: "wx"});
 fs.writeFileSync(path.join(runDir, "human/00-시작.md"), start, {flag: "wx"});
 fs.writeFileSync(path.join(runDir, "human/evidence/README.md"), evidenceIndex, {flag: "wx"});
 
-process.stdout.write(JSON.stringify({ok: true, run_id: runId, run_dir: runDir}, null, 2) + "\n");
+process.stdout.write(JSON.stringify({
+  ok: true,
+  run_id: runId,
+  run_dir: runDir,
+  execution_mode: executionMode
+}, null, 2) + "\n");

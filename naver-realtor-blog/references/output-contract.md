@@ -34,13 +34,14 @@ Use:
 - ai/production/ — readability receipt, deterministic Naver payload, and save result.
 - ai/qa/ — audience, evidence, content, and aggregate QA.
 - ai/report/ — report source artifact, builder notes, verification receipt.
-- ai/system/ — run manifest, lineage, execution agents, events, integrity.
+- ai/system/ — run manifest, execution mode, lineage, execution agents, events, integrity.
 
 ## Lineage
 
 Every derived artifact records:
 
 - run ID and schema version;
+- execution mode, bounded-context policy, and escalation lineage;
 - producer role and model when delegated;
 - input paths and SHA-256 values;
 - timestamp and status;

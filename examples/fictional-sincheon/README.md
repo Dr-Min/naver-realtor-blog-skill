@@ -18,6 +18,7 @@
 ## Files
 
 - [input.yaml](input.yaml) — 인간 입력의 정규화 예
+- [execution-mode.yaml](execution-mode.yaml) — 기본 가성비 모드와 10개 역할 유지 계약
 - [photo-observations.yaml](photo-observations.yaml) — 사진 관찰과 단정 금지 경계
 - [inferred-audience.yaml](inferred-audience.yaml) — AI 독자 추론
 - [keyword-decision.yaml](keyword-decision.yaml) — 제한 근거 모드 결정

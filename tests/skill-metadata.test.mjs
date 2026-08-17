@@ -59,6 +59,20 @@ test("mobile readability contract is represented in the executable example", () 
   assert.match(payload, /forbid_heading_body_concatenation:\s*true/);
 });
 
+test("efficient is default while all ten roles and ultra precision are preserved", () => {
+  const routing = fs.readFileSync(
+    path.join(skillRoot, "references/model-routing.md"), "utf8");
+  const example = fs.readFileSync(
+    path.join(root, "examples/fictional-sincheon/execution-mode.yaml"), "utf8");
+  assert.match(routing, /Efficient mode — default/);
+  assert.match(routing, /Ultra-precision mode — preserved former default/);
+  assert.match(routing, /fork_turns: "none"/);
+  assert.match(routing, /Preserve all ten logical roles/);
+  assert.match(example, /^mode: "efficient"$/m);
+  assert.match(example, /logical_roles: 10/);
+  assert.match(example, /roles_merged: false/);
+});
+
 test("relative Markdown links resolve", () => {
   const markdown = [];
   function walk(dir) {

@@ -8,15 +8,18 @@ Run:
 node naver-realtor-blog/scripts/init-run.mjs \
   --root ./outputs \
   --date 2026-08-18 \
-  --slug "신촌 단기임대"
+  --slug "신촌 단기임대" \
+  --mode efficient
 ```
 
-The script refuses to overwrite a non-empty run folder. It creates the human/AI separation, a run manifest, an append-only event log, and a plain-language start page.
+The script refuses to overwrite a non-empty run folder. It creates the human/AI separation, a run manifest, an execution-mode contract, an append-only event log, and a plain-language start page. Omit `--mode` to use `efficient`; pass `--mode ultra_precision` only after an explicit user request.
 
 Completion gate:
 
 - one run ID;
 - one date/slug directory;
+- efficient or ultra_precision mode recorded;
+- ten logical roles preserved with fork_turns none;
 - draft-only policy recorded;
 - credential storage false.
 

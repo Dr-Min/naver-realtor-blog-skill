@@ -2,6 +2,48 @@
 
 These are conceptual contracts. Implementations may add fields but should not remove provenance, limitations, or safety flags.
 
+## execution-mode.yaml
+
+```yaml
+schema_version: "1.0"
+mode: "efficient"
+default_mode: "efficient"
+agent_topology:
+  logical_roles: 10
+  roles_merged: false
+context:
+  fork_turns: "none"
+  full_conversation_forwarded: false
+  screenshots_embedded_in_prompts: false
+  input_contract: "paths_and_sha256"
+  chat_receipt_max_lines: 10
+escalation:
+  scope: "affected_role_only"
+  max_per_role: 1
+  default_target: "gpt-5.6-sol high"
+  browser_target: "gpt-5.6-terra high"
+```
+
+## execution-agents.yaml
+
+```yaml
+execution_mode: efficient
+roles:
+  - role: data_lab_collector
+    requested_model: gpt-5.6-luna
+    requested_effort: medium
+    actual_model: gpt-5.6-luna
+    actual_effort: medium
+    fork_turns: none
+    input_paths: []
+    input_sha256: []
+    owned_outputs: ["ai/research/3a-datalab/**"]
+    cache_reused: false
+    escalation:
+      requested: false
+      trigger: null
+```
+
 ## business-profile.yaml
 
 ```yaml

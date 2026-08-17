@@ -13,12 +13,20 @@ Every delegated agent receives:
 - prohibited mutations;
 - required factual limitations;
 - requested and actual model/effort.
+- execution mode and any role-local escalation trigger.
 
 Every agent is told that it shares the workspace, must preserve other agents' changes, and must not rewrite files it does not own.
 
+Every bounded role is spawned with `fork_turns: "none"`. It receives no full
+conversation transcript: only the run directory, the specific contract to
+read, input file paths and SHA-256, owned outputs, stop conditions, and return
+schema. Screenshots and workbooks are passed by local path rather than embedded
+bytes. Detailed work goes into owned artifacts; the chat receipt is normally
+ten lines or fewer.
+
 ## 3A — DataLab collector
 
-Default: `gpt-5.6-luna`, high.
+Efficient default: `gpt-5.6-luna`, medium. Ultra precision: high.
 
 Prompt contract:
 
@@ -35,7 +43,7 @@ Do not choose the final keyword.
 
 ## 3B — Autocomplete collector
 
-Default: `gpt-5.6-luna`, high.
+Efficient default: `gpt-5.6-luna`, low. Ultra precision: high.
 
 ```text
 Collect Naver autocomplete expressions for the locked base queries.
@@ -49,7 +57,7 @@ Do not choose the final keyword.
 
 ## 3C — Blog-search collector
 
-Default: `gpt-5.6-luna`, high.
+Efficient default: `gpt-5.6-luna`, medium. Ultra precision: high.
 
 ```text
 Collect current Naver Blog-tab evidence for the locked query and sort.
@@ -63,7 +71,7 @@ Do not choose the final keyword.
 
 ## Keyword decider
 
-Default: `gpt-5.6-sol`, high.
+Efficient default: `gpt-5.6-terra`, medium. Ultra precision: `gpt-5.6-sol`, high.
 
 ```text
 Read the locked 3A, 3B, and 3C results and their hashes.
@@ -78,7 +86,7 @@ Do not modify raw evidence.
 
 ## Content planner and writer
 
-Default: `gpt-5.6-sol`, high.
+Efficient default: `gpt-5.6-terra`, medium. Ultra precision: `gpt-5.6-sol`, high.
 
 ```text
 Create the listing-showcase plan, human draft, readability receipt,
@@ -108,7 +116,7 @@ Own only the content plan, human draft, readability receipt, and payload.
 
 ## Audience QA
 
-Default: `gpt-5.6-sol`, high.
+Efficient default: `gpt-5.6-luna`, medium. Ultra precision: `gpt-5.6-sol`, high.
 
 ```text
 Audit inferred audience against normalized listing facts and photo observations.
@@ -123,7 +131,8 @@ Do not repair the audience file.
 
 ## Evidence QA
 
-Default: `gpt-5.6-sol`, high.
+Efficient default: `gpt-5.6-luna`, medium with deterministic receipts.
+Ultra precision: `gpt-5.6-sol`, high.
 
 ```text
 Audit the complete evidence set independently.
@@ -136,7 +145,7 @@ Do not rewrite collector outputs.
 
 ## Content QA
 
-Default: `gpt-5.6-sol`, high.
+Efficient default: `gpt-5.6-terra`, medium. Ultra precision: `gpt-5.6-sol`, high.
 
 ```text
 Audit normalized facts, readable draft, photo map, keyword decision,
@@ -153,7 +162,8 @@ Do not silently repair production files.
 
 ## Browser publisher
 
-Default: `gpt-5.6-terra`, high. Single sequential owner.
+Efficient default: `gpt-5.6-terra`, medium. Ultra precision: high.
+Single sequential owner.
 
 ```text
 Use the Codex in-app Browser and the locked deterministic payload.
@@ -170,7 +180,7 @@ Record a privacy-safe before/after receipt.
 
 ## Report builder
 
-Default: `gpt-5.6-terra`, high.
+Efficient default: `gpt-5.6-terra`, low. Ultra precision: high.
 
 ```text
 Build one self-contained human HTML report from locked artifacts only.

@@ -30,12 +30,13 @@ Read these bundle files before the matching stage:
 - Reuse the authenticated Codex in-app Browser session. Ask the user to log in there only when the session is absent, expired, or challenged.
 - After QA passes, save to Naver draft automatically unless the user explicitly says not to. Never publish or open publication settings.
 - Record every input, transformation, source, decision, countercheck, model role, artifact path, SHA-256, and result.
+- Preserve all ten logical agent roles. Use `efficient` by default; use the former high-cost routing only as explicit `ultra_precision` mode. Spawn bounded roles with `fork_turns: "none"` and pass file paths plus hashes instead of the conversation.
 - Do not claim absolute search volume unless a source that actually reports it was collected. Naver DataLab ratios are relative values only.
 - If a required fact, source, photo right, target blog identity, or QA gate is unresolved, stop only the affected downstream action and still produce an honest report.
 
 ## Run the cycle
 
-1. Create the date/slug folder with scripts/init-run.mjs.
+1. Resolve the execution mode, defaulting to `efficient`, and create the date/slug folder with scripts/init-run.mjs --mode <mode>.
 2. Interview in plain language. Show examples and collect the minimum missing facts.
 3. Write normalized business, listing, request, photo-observation, and run-manifest files.
 4. Infer the likely audience from listing facts and visible photo evidence. Include alternatives and counterarguments.
@@ -69,6 +70,7 @@ A run is complete only when:
 - human input and inferred audience are clearly separated;
 - 3A/3B/3C evidence and limitations are recorded;
 - keyword selection is traceable to evidence;
+- execution mode, actual model/effort, bounded-context policy, cache use, and every role-local escalation are recorded;
 - draft, ordered Naver payload, readability receipt, QA, save result, report, and integrity records agree;
 - the Naver draft is confirmed saved or a precise browser blocker is recorded;
 - public publication remains false.

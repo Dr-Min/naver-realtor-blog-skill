@@ -20,6 +20,8 @@
 - normalizes the slug;
 - creates every human and AI directory;
 - writes the manifest and event log;
+- defaults to efficient and accepts explicit ultra_precision;
+- writes the ten-role, fork_turns-none execution contract;
 - records draft-only policy;
 - refuses to overwrite a non-empty run;
 - rejects an OpenKnowledge content root.
@@ -31,6 +33,7 @@
 - complete phase requires report, save result, and integrity;
 - rejects public_publish true;
 - requires a draft-save-only action;
+- rejects a missing or invalid execution mode and merged-role topology;
 - requires the `naver_mobile_v1` readability profile and structural verification flags;
 - flags credential-like assigned values;
 - emits hashes for required files.
