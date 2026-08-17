@@ -13,6 +13,9 @@ The operator should not need to understand machine schemas. Human files answer:
 - what still needs attention.
 
 AI files preserve raw evidence, schemas, hashes, lineage, and browser payloads.
+The production folder also preserves the machine-checkable readability receipt
+used to verify paragraph length, heading separation, condition bullets, image
+rhythm, emphasis, and declared exceptions.
 
 ## Human files
 

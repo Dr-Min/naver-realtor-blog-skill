@@ -8,6 +8,7 @@ Use these defaults when the models are available. Preserve the actual resolved m
 | Autocomplete collector | gpt-5.6-luna | high | 3B parallel |
 | Blog-search collector | gpt-5.6-luna | high | 3C parallel |
 | Keyword decider | gpt-5.6-sol | high | after 3A/3B/3C |
+| Content planner/writer | gpt-5.6-sol | high | after keyword decision |
 | Audience QA | gpt-5.6-sol | high | QA parallel |
 | Evidence QA | gpt-5.6-sol | high | QA parallel |
 | Content QA | gpt-5.6-sol | high | QA parallel |

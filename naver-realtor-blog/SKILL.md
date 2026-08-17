@@ -46,7 +46,7 @@ Read these bundle files before the matching stage:
    - 3C: Naver Blog-tab related-sort results, sampled result metadata, readable capture, URLs, and hashes.
 7. Have an independent keyword-decider compare the evidence and record selected/rejected candidates, reasons, reasons-for-reasons, and uncertainty.
 8. Produce a listing-showcase content plan unless the user explicitly requests an informational article.
-9. Draft the human-readable post, then compile one deterministic Naver payload containing the exact ordered title, text, heading, image, caption, and tag blocks.
+9. Draft for a phone screen using the `naver_mobile_v1` readability profile, then compile one deterministic Naver payload containing the exact ordered title, notice, heading, paragraph, bullet, spacer, image, caption, CTA, and tag blocks.
 10. Run independent audience, evidence, and content QA. Remediate findings and re-run affected gates.
 11. Lock the approved payload and hashes.
 12. Use one sequential browser owner to verify the target blog, enter the exact payload, upload photos at their anchors, verify captions, and click only “임시저장”.
@@ -69,7 +69,7 @@ A run is complete only when:
 - human input and inferred audience are clearly separated;
 - 3A/3B/3C evidence and limitations are recorded;
 - keyword selection is traceable to evidence;
-- draft, ordered Naver payload, QA, save result, report, and integrity records agree;
+- draft, ordered Naver payload, readability receipt, QA, save result, report, and integrity records agree;
 - the Naver draft is confirmed saved or a precise browser blocker is recorded;
 - public publication remains false.
 

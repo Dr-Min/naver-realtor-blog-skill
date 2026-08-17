@@ -142,6 +142,7 @@ The human draft is optimized for reading. The browser does not parse it heuristi
 
 ```yaml
 title: "exact title"
+readability_profile: naver_mobile_v1
 body_blocks:
   - type: text
     style: notice
@@ -149,6 +150,11 @@ body_blocks:
   - type: text
     style: heading
     text: "핵심 조건"
+  - type: text
+    style: bullet
+    text: "보증금 · 월세: ..."
+  - type: spacer
+    size: single
   - type: image
     local_path: "../../human/photos/room-01.svg"
     sha256: "..."

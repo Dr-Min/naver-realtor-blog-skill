@@ -31,7 +31,7 @@ Use:
 - ai/research/3b-autocomplete/
 - ai/research/3c-blog-search/
 - ai/planning/ — keyword research and content plan.
-- ai/production/ — deterministic Naver payload and save result.
+- ai/production/ — readability receipt, deterministic Naver payload, and save result.
 - ai/qa/ — audience, evidence, content, and aggregate QA.
 - ai/report/ — report source artifact, builder notes, verification receipt.
 - ai/system/ — run manifest, lineage, execution agents, events, integrity.

@@ -69,6 +69,7 @@ if (phase !== "scaffold") {
     "human/02-블로그원고.md",
     "ai/normalized/inferred-audience.yaml",
     "ai/planning/keyword-research.yaml",
+    "ai/production/readability-receipt.yaml",
     "ai/production/naver-payload.yaml",
     "ai/qa/qa-summary.yaml"
   );
@@ -103,6 +104,21 @@ if (phase !== "scaffold" && fs.existsSync(payloadPath)) {
   const payload = fs.readFileSync(payloadPath, "utf8");
   if (!/public_publish\s*:\s*false/i.test(payload)) errors.push("payload must declare public_publish: false");
   if (!/save_draft_only|draft[_ -]?save/i.test(payload)) errors.push("payload must declare draft-save-only action");
+  if (!/readability_profile\s*:\s*[\"']?naver_mobile_v1/i.test(payload)) {
+    errors.push("payload must declare readability_profile: naver_mobile_v1");
+  }
+  for (const key of [
+    "require_separate_heading_blocks",
+    "require_scannable_core_conditions",
+    "require_single_visual_gaps",
+    "forbid_heading_body_concatenation"
+  ]) {
+    const rule = new RegExp(key + "\\s*:\\s*true", "i");
+    if (!rule.test(payload)) errors.push("payload must enable readability verification: " + key);
+  }
+  if (!/max_paragraph_chars\s*:\s*140/i.test(payload)) {
+    errors.push("payload must declare max_paragraph_chars: 140");
+  }
 }
 
 const secretKey = /^\s*(password|passwd|cookie|cookies|session_token|otp|비밀번호|인증번호)\s*:\s*(.+)$/i;

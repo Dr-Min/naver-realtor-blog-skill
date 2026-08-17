@@ -21,7 +21,9 @@
 - [photo-observations.yaml](photo-observations.yaml) — 사진 관찰과 단정 금지 경계
 - [inferred-audience.yaml](inferred-audience.yaml) — AI 독자 추론
 - [keyword-decision.yaml](keyword-decision.yaml) — 제한 근거 모드 결정
+- [readable-draft.md](readable-draft.md) — 모바일 가독성 규칙을 적용한 인간용 원고
 - [naver-payload.yaml](naver-payload.yaml) — 브라우저용 결정적 입력 순서
+- [readability-receipt.yaml](readability-receipt.yaml) — 모바일 문단·소제목·사진 간격 검수값
 - [report-outline.md](report-outline.md) — 인간 보고서 요약 예
 - [assets](assets/) — 실제 사진이 아닌 단순 자리표시자
 

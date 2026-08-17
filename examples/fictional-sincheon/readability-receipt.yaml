@@ -1,0 +1,15 @@
+profile: naver_mobile_v1
+heading_count: 5
+paragraph_characters: [38, 40, 39, 47]
+longest_paragraph: 47
+paragraph_exceptions: []
+core_condition_bullets: 4
+consecutive_images: []
+emphasis_per_section:
+  핵심 조건: 0
+  방 안쪽 모습: 0
+  이런 분이 비교해볼 만합니다: 0
+  방문 전 확인할 점: 0
+  상담할 때 알려주세요: 0
+concatenation_risks: []
+deviations: []

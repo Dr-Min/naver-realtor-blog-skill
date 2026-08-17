@@ -65,9 +65,17 @@ test("complete validation passes safe fixture and blocks publication", () => {
     write(runDir, "human/04-임시저장결과.md", "# 임시저장 결과\n");
     write(runDir, "ai/normalized/inferred-audience.yaml");
     write(runDir, "ai/planning/keyword-research.yaml");
+    write(runDir, "ai/production/readability-receipt.yaml",
+      "profile: naver_mobile_v1\nheading_count: 4\n");
     write(runDir, "ai/qa/qa-summary.yaml", "status: PASS\n");
     write(runDir, "ai/production/naver-payload.yaml",
-      "public_publish: false\naction_after_qa: save_draft_only\n");
+      "public_publish: false\naction_after_qa: save_draft_only\n" +
+      "readability_profile: naver_mobile_v1\nverification:\n" +
+      "  require_separate_heading_blocks: true\n" +
+      "  require_scannable_core_conditions: true\n" +
+      "  require_single_visual_gaps: true\n" +
+      "  forbid_heading_body_concatenation: true\n" +
+      "  max_paragraph_chars: 140\n");
     write(runDir, "ai/production/save-result.yaml",
       "status: saved\npublic_publish: false\ncredentials_stored: false\n");
     write(runDir, "ai/system/integrity.yaml");
@@ -78,6 +86,18 @@ test("complete validation passes safe fixture and blocks publication", () => {
       "--phase", "complete"
     ], {encoding: "utf8"}));
     assert.equal(pass.ok, true);
+
+    write(runDir, "ai/production/naver-payload.yaml",
+      "public_publish: false\naction_after_qa: save_draft_only\n");
+    const unreadable = spawnSync(process.execPath, [
+      validateScript,
+      "--run", runDir,
+      "--phase", "complete"
+    ], {encoding: "utf8"});
+    assert.notEqual(unreadable.status, 0);
+    const unreadableResult = JSON.parse(unreadable.stdout);
+    assert.ok(unreadableResult.errors.some((value) =>
+      value.includes("readability_profile: naver_mobile_v1")));
 
     write(runDir, "ai/production/naver-payload.yaml",
       "public_publish: true\naction_after_qa: publish\n");

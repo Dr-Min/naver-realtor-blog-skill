@@ -46,6 +46,19 @@ test("required bundle files exist", () => {
   }
 });
 
+test("mobile readability contract is represented in the executable example", () => {
+  const contract = fs.readFileSync(
+    path.join(skillRoot, "references/content-and-qa.md"), "utf8");
+  const payload = fs.readFileSync(
+    path.join(root, "examples/fictional-sincheon/naver-payload.yaml"), "utf8");
+  assert.match(contract, /naver_mobile_v1/);
+  assert.match(contract, /140 characters/);
+  assert.match(payload, /readability_profile:\s*naver_mobile_v1/);
+  assert.match(payload, /style:\s*bullet/);
+  assert.match(payload, /type:\s*spacer/);
+  assert.match(payload, /forbid_heading_body_concatenation:\s*true/);
+});
+
 test("relative Markdown links resolve", () => {
   const markdown = [];
   function walk(dir) {

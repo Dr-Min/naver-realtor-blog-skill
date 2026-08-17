@@ -96,12 +96,34 @@ status: qa_approved_for_draft_save
 public_publish: false
 action_after_qa: save_draft_only
 title: "..."
+readability_profile: naver_mobile_v1
 body_blocks: []
 tags: []
 verification:
   require_title: true
   require_visible_captions: true
+  require_separate_heading_blocks: true
+  require_scannable_core_conditions: true
+  require_single_visual_gaps: true
+  forbid_heading_body_concatenation: true
+  max_paragraph_chars: 140
   forbidden_action: publish
+```
+
+## readability-receipt.yaml
+
+```yaml
+profile: naver_mobile_v1
+heading_count: 4
+paragraph_characters: [42, 61, 78]
+longest_paragraph: 78
+paragraph_exceptions: []
+core_condition_bullets: 6
+consecutive_images: []
+emphasis_per_section:
+  핵심 조건: 1
+concatenation_risks: []
+deviations: []
 ```
 
 ## QA receipt

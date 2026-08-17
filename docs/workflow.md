@@ -195,6 +195,11 @@ Plan:
 - pre-contract checks;
 - CTA.
 
+Apply `naver_mobile_v1`: disclosure, two-line opening, early condition bullets,
+3–5 separate headings, one-idea paragraphs, one visual gap between groups,
+contextual photo anchors, pre-visit checklist, and compact CTA. Produce a
+readability receipt before content QA.
+
 ## Phase 8 — Draft and payload
 
 Create:
@@ -202,7 +207,9 @@ Create:
 - human/02-블로그원고.md for reading;
 - ai/production/naver-payload.yaml for browser execution.
 
-The payload fixes exact order and content. The browser writer must not re-derive it from Markdown.
+The payload fixes exact order, content, and visual rhythm. It uses explicit
+notice, heading, paragraph, bullet, spacer, image, and CTA blocks. The browser
+writer must not re-derive it from Markdown.
 
 ## Phase 9 — Independent QA
 
@@ -229,7 +236,7 @@ QA emits PASS, FAIL, or BLOCKED. QA does not silently edit production files.
 5. enter exact title and blocks;
 6. upload images at anchors;
 7. select images and enter visible captions;
-8. verify all structural assertions;
+8. verify heading/body separation, condition bullets, paragraph gaps, photo rhythm, and all other structural assertions;
 9. click only draft save;
 10. record before/after evidence.
 

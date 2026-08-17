@@ -31,6 +31,7 @@
 - complete phase requires report, save result, and integrity;
 - rejects public_publish true;
 - requires a draft-save-only action;
+- requires the `naver_mobile_v1` readability profile and structural verification flags;
 - flags credential-like assigned values;
 - emits hashes for required files.
 
@@ -55,11 +56,14 @@ Automated tests cannot guarantee Naver editor compatibility. A release that chan
 1. already-authenticated flow;
 2. logged-out handoff flow;
 3. heading separation;
-4. three image anchors;
-5. visible captions;
-6. draft-only click;
-7. privacy-safe save receipt;
-8. no publication settings opened.
+4. paragraph separation and single visual gaps;
+5. scannable core-condition bullets;
+6. no wall-of-text or heading/body concatenation;
+7. three image anchors;
+8. visible captions;
+9. draft-only click;
+10. privacy-safe save receipt;
+11. no publication settings opened.
 
 Do not run public publication as a test.
 

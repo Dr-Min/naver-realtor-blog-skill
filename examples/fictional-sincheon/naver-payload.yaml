@@ -4,19 +4,47 @@ status: "example_only_not_browser_approved"
 public_publish: false
 action_after_qa: save_draft_only
 title: "신촌 단기임대 가상 예제｜2인 조건을 확인하는 풀옵션 원룸"
+readability_profile: naver_mobile_v1
 body_blocks:
   - type: text
     style: notice
     text: "[가상 자동화 시연] 실제 사무소·인물·매물이 아니며 실제 문의를 받지 않습니다."
   - type: text
+    style: paragraph
+    text: "신촌 생활권에서 가구 구매 없이 머물 곳을 찾는 상황을 가정했습니다."
+  - type: text
+    style: paragraph
+    text: "비용과 2인 거주 조건을 먼저 확인할 수 있도록 핵심만 나눠 적었습니다."
+  - type: spacer
+    size: single
+  - type: text
     style: heading
     text: "핵심 조건"
   - type: text
+    style: bullet
+    text: "위치: 신촌 생활권"
+  - type: text
+    style: bullet
+    text: "보증금 · 월세: 300만 원 · 95만 원"
+  - type: text
+    style: bullet
+    text: "관리비: 10만 원"
+  - type: text
+    style: bullet
+    text: "거주 조건: 가상 입력상 1~2인 비교 가능"
+  - type: spacer
+    size: single
+  - type: text
+    style: heading
+    text: "방 안쪽 모습"
+  - type: text
     style: paragraph
-    text: "신촌 생활권, 보증금 300만 원, 월세 95만 원, 관리비 10만 원으로 설정한 가상 예제입니다."
+    text: "첫 이미지는 침대와 창문, 의자, 수납 가구가 보이는 가상 예제입니다."
   - type: image
     local_path: "assets/room-01.svg"
     caption: "가상 예제 이미지 1 — 실제 매물 사진이 아닙니다."
+  - type: spacer
+    size: single
   - type: text
     style: heading
     text: "이런 분이 비교해볼 만합니다"
@@ -26,18 +54,39 @@ body_blocks:
   - type: image
     local_path: "assets/room-02.svg"
     caption: "가상 예제 이미지 2 — 실제 매물 사진이 아닙니다."
+  - type: spacer
+    size: single
   - type: text
     style: heading
-    text: "확인할 점"
+    text: "방문 전 확인할 점"
   - type: text
-    style: paragraph
-    text: "가상 입력상 주차가 불가능하고 엘리베이터가 없습니다. 실제 글은 최신 확인값으로 교체해야 합니다."
+    style: bullet
+    text: "주차 가능 여부: 가상 입력상 불가"
+  - type: text
+    style: bullet
+    text: "엘리베이터: 가상 입력상 없음"
+  - type: text
+    style: bullet
+    text: "실제 게시 전 가격·입주일·옵션을 최신 값으로 재확인"
   - type: image
     local_path: "assets/entrance-03.svg"
     caption: "가상 예제 이미지 3 — 실제 매물 사진이 아닙니다."
+  - type: spacer
+    size: single
+  - type: text
+    style: heading
+    text: "상담할 때 알려주세요"
+  - type: text
+    style: cta
+    text: "희망 입주일과 거주 인원, 꼭 필요한 옵션을 알려주시면 비교할 조건을 정리해드립니다."
 tags: ["신촌단기임대", "신촌원룸", "가상예제"]
 verification:
   require_top_disclosure: true
   require_three_images: true
   require_three_visible_captions: true
+  require_separate_heading_blocks: true
+  require_scannable_core_conditions: true
+  require_single_visual_gaps: true
+  forbid_heading_body_concatenation: true
+  max_paragraph_chars: 140
   forbidden_action: publish
