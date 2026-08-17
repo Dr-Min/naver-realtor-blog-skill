@@ -1,0 +1,43 @@
+schema_version: "1.0"
+fixture: true
+status: "example_only_not_browser_approved"
+public_publish: false
+action_after_qa: save_draft_only
+title: "신촌 단기임대 가상 예제｜2인 조건을 확인하는 풀옵션 원룸"
+body_blocks:
+  - type: text
+    style: notice
+    text: "[가상 자동화 시연] 실제 사무소·인물·매물이 아니며 실제 문의를 받지 않습니다."
+  - type: text
+    style: heading
+    text: "핵심 조건"
+  - type: text
+    style: paragraph
+    text: "신촌 생활권, 보증금 300만 원, 월세 95만 원, 관리비 10만 원으로 설정한 가상 예제입니다."
+  - type: image
+    local_path: "assets/room-01.svg"
+    caption: "가상 예제 이미지 1 — 실제 매물 사진이 아닙니다."
+  - type: text
+    style: heading
+    text: "이런 분이 비교해볼 만합니다"
+  - type: text
+    style: paragraph
+    text: "신촌에서 가구 구매 없이 일정 기간 거주할 1~2인이 비교해볼 만한 가상 조건입니다."
+  - type: image
+    local_path: "assets/room-02.svg"
+    caption: "가상 예제 이미지 2 — 실제 매물 사진이 아닙니다."
+  - type: text
+    style: heading
+    text: "확인할 점"
+  - type: text
+    style: paragraph
+    text: "가상 입력상 주차가 불가능하고 엘리베이터가 없습니다. 실제 글은 최신 확인값으로 교체해야 합니다."
+  - type: image
+    local_path: "assets/entrance-03.svg"
+    caption: "가상 예제 이미지 3 — 실제 매물 사진이 아닙니다."
+tags: ["신촌단기임대", "신촌원룸", "가상예제"]
+verification:
+  require_top_disclosure: true
+  require_three_images: true
+  require_three_visible_captions: true
+  forbidden_action: publish

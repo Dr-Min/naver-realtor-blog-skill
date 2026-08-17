@@ -1,0 +1,6 @@
+interface:
+  display_name: "네이버 공인중개사 블로그"
+  short_description: "근거 조사부터 네이버 안전 임시저장까지 한 사이클"
+  default_prompt: "Use $naver-realtor-blog to turn my listing facts and photos into an evidence-backed Naver Blog draft, audit report, and safe draft save."
+policy:
+  allow_implicit_invocation: true

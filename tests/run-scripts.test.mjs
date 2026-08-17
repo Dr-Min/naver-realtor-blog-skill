@@ -1,0 +1,96 @@
+import assert from "node:assert/strict";
+import {execFileSync, spawnSync} from "node:child_process";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import test from "node:test";
+
+const root = process.cwd();
+const initScript = path.join(root, "naver-realtor-blog/scripts/init-run.mjs");
+const validateScript = path.join(root, "naver-realtor-blog/scripts/validate-run.mjs");
+
+function write(runDir, rel, content = "fixture: true\n") {
+  const file = path.join(runDir, rel);
+  fs.mkdirSync(path.dirname(file), {recursive: true});
+  fs.writeFileSync(file, content);
+}
+
+test("init-run creates a valid scaffold and refuses overwrite", () => {
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), "naver-skill-"));
+  try {
+    const output = execFileSync(process.execPath, [
+      initScript,
+      "--root", temp,
+      "--date", "2026-08-18",
+      "--slug", "신촌 원룸 테스트"
+    ], {encoding: "utf8"});
+    const created = JSON.parse(output);
+    assert.equal(created.ok, true);
+    assert.ok(created.run_dir.endsWith(path.join("2026-08-18", "신촌-원룸-테스트")));
+
+    const validated = JSON.parse(execFileSync(process.execPath, [
+      validateScript,
+      "--run", created.run_dir,
+      "--phase", "scaffold"
+    ], {encoding: "utf8"}));
+    assert.equal(validated.ok, true);
+
+    const duplicate = spawnSync(process.execPath, [
+      initScript,
+      "--root", temp,
+      "--date", "2026-08-18",
+      "--slug", "신촌 원룸 테스트"
+    ], {encoding: "utf8"});
+    assert.notEqual(duplicate.status, 0);
+    assert.match(duplicate.stderr, /already exists/);
+  } finally {
+    fs.rmSync(temp, {recursive: true, force: true});
+  }
+});
+
+test("complete validation passes safe fixture and blocks publication", () => {
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), "naver-skill-"));
+  try {
+    const created = JSON.parse(execFileSync(process.execPath, [
+      initScript,
+      "--root", temp,
+      "--date", "2026-08-18",
+      "--slug", "완료 검증"
+    ], {encoding: "utf8"}));
+    const runDir = created.run_dir;
+
+    write(runDir, "human/01-입력내용.md", "# 입력\n");
+    write(runDir, "human/02-블로그원고.md", "# 가상 원고\n");
+    write(runDir, "human/03-실행보고서.html", "<!doctype html><title>fixture</title>");
+    write(runDir, "human/04-임시저장결과.md", "# 임시저장 결과\n");
+    write(runDir, "ai/normalized/inferred-audience.yaml");
+    write(runDir, "ai/planning/keyword-research.yaml");
+    write(runDir, "ai/qa/qa-summary.yaml", "status: PASS\n");
+    write(runDir, "ai/production/naver-payload.yaml",
+      "public_publish: false\naction_after_qa: save_draft_only\n");
+    write(runDir, "ai/production/save-result.yaml",
+      "status: saved\npublic_publish: false\ncredentials_stored: false\n");
+    write(runDir, "ai/system/integrity.yaml");
+
+    const pass = JSON.parse(execFileSync(process.execPath, [
+      validateScript,
+      "--run", runDir,
+      "--phase", "complete"
+    ], {encoding: "utf8"}));
+    assert.equal(pass.ok, true);
+
+    write(runDir, "ai/production/naver-payload.yaml",
+      "public_publish: true\naction_after_qa: publish\n");
+    const blocked = spawnSync(process.execPath, [
+      validateScript,
+      "--run", runDir,
+      "--phase", "complete"
+    ], {encoding: "utf8"});
+    assert.notEqual(blocked.status, 0);
+    const result = JSON.parse(blocked.stdout);
+    assert.equal(result.ok, false);
+    assert.ok(result.errors.some((value) => value.includes("public_publish true")));
+  } finally {
+    fs.rmSync(temp, {recursive: true, force: true});
+  }
+});

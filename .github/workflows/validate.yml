@@ -1,0 +1,35 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm test
+      - run: npm run audit:public
+      - name: Validate Skill frontmatter
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          text = Path("naver-realtor-blog/SKILL.md").read_text(encoding="utf-8")
+          assert text.startswith("---\n")
+          frontmatter = text.split("---\n", 2)[1]
+          keys = [line.split(":", 1)[0] for line in frontmatter.splitlines() if ":" in line]
+          assert keys == ["name", "description"], keys
+          name = re.search(r"^name:\s*(.+)$", frontmatter, re.M).group(1)
+          assert re.fullmatch(r"[a-z0-9-]{1,64}", name)
+          assert "description:" in frontmatter
+          print("Skill frontmatter OK")
+          PY

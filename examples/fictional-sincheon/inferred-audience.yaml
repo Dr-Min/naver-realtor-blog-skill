@@ -1,0 +1,28 @@
+schema_version: "1.0"
+fixture: true
+value_type: ai_inference_not_realtor_input
+primary_hypothesis: "신촌 생활권에서 가구 구매 없이 단기간 거주할 집을 찾는 1~2인"
+confidence: medium
+evidence:
+  - source: "input.yaml#listing.transaction_type"
+    observation: "단기 월세"
+    supports: "일정 기간 거주하려는 사람"
+    strength: high
+  - source: "input.yaml#property.occupancy_limit"
+    observation: "가상 계약 조건상 최대 2인"
+    supports: "1~2인 조건 비교"
+    strength: high
+  - source: "input.yaml#property.elevator"
+    observation: "가상 입력상 엘리베이터 없음"
+    supports: "계단 이용이 가능한 사람"
+    strength: medium
+counterarguments:
+  - "월세와 관리비 합계가 일부 학생 예산에는 높을 수 있음"
+  - "신촌 생활권만으로 대학생을 주 독자로 단정할 수 없음"
+alternatives:
+  - "단기 프로젝트 근무자"
+  - "인턴"
+  - "임시 거처가 필요한 1~2인"
+prohibited_claims:
+  - "대학생 전용"
+  - "사진을 근거로 2인 입주 가능"

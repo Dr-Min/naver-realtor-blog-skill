@@ -1,0 +1,21 @@
+schema_version: "1.0"
+fixture: true
+photos:
+  - id: room-01
+    file: "assets/room-01.svg"
+    authorized: true
+    visible: ["침대 두 개를 상징하는 도형", "창문을 상징하는 도형"]
+    cannot_prove: ["실제 방", "입주 가능 인원", "전용면적", "계약 옵션"]
+    planned_caption: "가상 예제 이미지 1 — 실제 매물 사진이 아닙니다."
+  - id: room-02
+    file: "assets/room-02.svg"
+    authorized: true
+    visible: ["침대와 수납을 상징하는 도형"]
+    cannot_prove: ["실제 가구 상태", "채광", "계약 포함 여부"]
+    planned_caption: "가상 예제 이미지 2 — 실제 매물 사진이 아닙니다."
+  - id: entrance-03
+    file: "assets/entrance-03.svg"
+    authorized: true
+    visible: ["출입구를 상징하는 도형"]
+    cannot_prove: ["실제 건물", "층수", "보안", "엘리베이터 유무"]
+    planned_caption: "가상 예제 이미지 3 — 실제 매물 사진이 아닙니다."

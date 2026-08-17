@@ -1,0 +1,16 @@
+{
+  "name": "naver-realtor-blog-skill",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Auditable Naver Blog workflow skill for Korean realtors.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "audit:public": "node tools/public-repo-audit.mjs",
+    "validate": "npm test && npm run audit:public"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}

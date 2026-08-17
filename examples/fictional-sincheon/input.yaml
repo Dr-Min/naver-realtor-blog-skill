@@ -1,0 +1,36 @@
+schema_version: "1.0"
+fixture: true
+disclosure: "가상 자동화 시연 자료이며 실제 매물이 아님"
+business:
+  office_display_name: "신촌하우스 공인중개사사무소(가상)"
+  realtor_display_name: "김민서(가상)"
+  public_contact: null
+listing:
+  region: "신촌 생활권"
+  public_location: "신촌역 도보 8분 설정"
+  property_type: "오픈형 원룸"
+  transaction_type: "단기 월세"
+  availability: "가상으로 계약 가능"
+  confirmed_at: "2026-08-18T09:00:00+09:00"
+prices:
+  deposit_krw: 3000000
+  monthly_rent_krw: 950000
+  management_fee_krw: 100000
+  included: ["수도", "인터넷"]
+  excluded: ["전기", "가스"]
+property:
+  area_pyeong: 10.8
+  floor: 3
+  total_floors: 5
+  move_in_date: "2026-09-01"
+  parking: false
+  elevator: false
+  occupancy_limit: 2
+  occupancy_source: "가상 계약 조건 입력"
+photos:
+  - "assets/room-01.svg"
+  - "assets/room-02.svg"
+  - "assets/entrance-03.svg"
+publishing:
+  save_after_qa: true
+  public_publish: false
