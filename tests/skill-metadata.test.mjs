@@ -38,7 +38,9 @@ test("required bundle files exist", () => {
     "references/content-and-qa.md",
     "references/browser-and-report.md",
     "references/model-routing.md",
+    "references/profile-and-style.md",
     "scripts/init-run.mjs",
+    "scripts/init-profile.mjs",
     "scripts/validate-run.mjs"
   ];
   for (const rel of required) {

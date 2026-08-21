@@ -11,6 +11,7 @@ Run one auditable cycle from realtor input to Naver draft save. Treat the realto
 
 Read these bundle files before the matching stage:
 
+- references/profile-and-style.md before loading the profile, applying voice, or learning style from the user's own posts.
 - references/input-contract.md before interviewing or normalizing input.
 - references/output-contract.md before creating a run directory.
 - references/research-keywords.md before collecting 3A/3B/3C evidence or choosing keywords.
@@ -21,7 +22,10 @@ Read these bundle files before the matching stage:
 ## Non-negotiable boundaries
 
 - Ask the user in natural Korean with examples. Do not ask them to edit YAML; convert their answers into internal YAML yourself.
-- Reuse the saved business profile. Ask only for missing or changed post facts.
+- Load `profile.yaml` first and reuse it as the saved business profile. Ask only for missing or changed post facts. A missing profile never blocks a run.
+- Treat `profile.yaml` as the only customization surface. Never tell the user to edit SKILL.md or a reference file.
+- Apply voice in order: readability floor, then preset or learned style card, then profile overrides. A style card never weakens `naver_mobile_v1`, a prohibited claim, or a QA gate.
+- Learn voice only from the user's own registered blog, only in a setup step outside this cycle, and only into a distilled card. Never learn voice from another person's posts.
 - Audience is an AI inference, not a required realtor input. Store evidence, counterarguments, limitations, and confidence.
 - Keep human-facing and AI-working files in separate folders under one date/slug run directory.
 - Create no blog-preview HTML. Save the readable draft as Markdown and create exactly one audit-report HTML.
@@ -36,9 +40,9 @@ Read these bundle files before the matching stage:
 
 ## Run the cycle
 
-1. Resolve the execution mode, defaulting to `efficient`, and create the date/slug folder with scripts/init-run.mjs --mode <mode>.
-2. Interview in plain language. Show examples and collect the minimum missing facts.
-3. Write normalized business, listing, request, photo-observation, and run-manifest files.
+1. Load the profile, resolve the execution mode from it or the user's request, defaulting to `efficient`, and create the date/slug folder with scripts/init-run.mjs --mode <mode>.
+2. Interview in plain language for what the profile does not already answer. Show examples and collect the minimum missing facts.
+3. Write normalized business, listing, request, photo-observation, and run-manifest files, recording the profile path, SHA-256, active voice source, and any research surface the profile disabled.
 4. Infer the likely audience from listing facts and visible photo evidence. Include alternatives and counterarguments.
 5. Generate a bounded keyword candidate set without assigning volumes.
 6. Collect evidence:

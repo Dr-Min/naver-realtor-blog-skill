@@ -25,6 +25,11 @@ Keep critical conditions in text, not only images. Use keywords naturally in the
 
 Use `naver_mobile_v1` by default. Write for a reader scanning a phone, not for a report reader.
 
+This profile is the floor. A tone preset, a learned style card, and profile
+overrides change wording, rhythm, greetings, and CTA phrasing on top of it, and
+none of them may relax the limits below. See
+[profile-and-style.md](profile-and-style.md).
+
 ### Page rhythm
 
 1. Put a required fictional or sponsored disclosure first.
@@ -106,6 +111,12 @@ Recompute DataLab values, verify raw/source/capture hashes, inspect included/exc
 ### Content QA
 
 Check listing facts against normalized input, price arithmetic, disclosure, title/body agreement, photo order/captions, privacy, promotional transparency, keyword naturalness, CTA safety, and deterministic payload agreement.
+
+Also check the profile: no phrase from `prohibited.claims`, no detail from
+`prohibited.details`, CTA limited to the office fields the profile actually
+provides, and no trait the active style card lists under `reject`. A style card
+never suppresses a finding; when the card and this contract disagree, the
+contract wins and the conflict is recorded.
 
 Also validate the readability receipt against the actual draft and payload. Fail when headings are fused to body text, critical conditions are buried in prose, a non-exempt paragraph exceeds 140 characters, Markdown markers leak into editor text, images are unintentionally clumped, or the payload cannot preserve visible section gaps. Do not reward empty-line padding, excessive bullets, or unnaturally short sentence fragments merely for satisfying counts.
 

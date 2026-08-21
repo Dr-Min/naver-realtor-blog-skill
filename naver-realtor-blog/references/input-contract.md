@@ -13,6 +13,11 @@ Never expose YAML as a task for the user. After each answer, write or update the
 
 ## Persistent business profile
 
+The profile lives in `profile.yaml` outside the run directory, not in
+`ai/normalized/`. See [profile-and-style.md](profile-and-style.md) for its
+location, precedence, and the fields the user may change. Load it before the
+first question, and never re-ask for a field it already answers.
+
 Store and reuse:
 
 - office display name and realtor display name;
